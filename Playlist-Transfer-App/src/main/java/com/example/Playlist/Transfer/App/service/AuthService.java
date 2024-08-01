@@ -25,11 +25,20 @@ public class AuthService {
     private final SpotifyApi spotifyApi;
 
     public AuthService() {
-        this.spotifyApi = (new SpotifyApi.Builder()).setClientId(ClientInfo.CLIENT_ID.getClientInfo()).setClientSecret(ClientInfo.CLIENT_SECRET.getClientInfo()).setRedirectUri(this.redirectUri).build();
+        this.spotifyApi = (new SpotifyApi.Builder())
+                .setClientId(ClientInfo.CLIENT_ID.getClientInfo())
+                .setClientSecret(ClientInfo.CLIENT_SECRET.getClientInfo())
+                .setRedirectUri(this.redirectUri)
+                .build();
     }
 
     public RedirectView getAuthCode() {
-        AuthorizationCodeUriRequest authorizationCodeUriRequest = this.spotifyApi.authorizationCodeUri().scope("playlist-read-private, playlist-read-collaborative").show_dialog(true).build();
+        AuthorizationCodeUriRequest authorizationCodeUriRequest = this.spotifyApi
+                .authorizationCodeUri()
+                .scope("playlist-read-private, playlist-read-collaborative")
+                .show_dialog(true)
+                .build();
+
         URI uri = authorizationCodeUriRequest.execute();
         String url = uri.toString();
         RedirectView redirectView = new RedirectView();
@@ -45,6 +54,7 @@ public class AuthService {
             this.spotifyApi.setAccessToken(authorizationCodeCredentials.getAccessToken());
             this.spotifyApi.setRefreshToken(authorizationCodeCredentials.getRefreshToken());
             System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());
+
         } catch (SpotifyWebApiException | ParseException | IOException var5) {
             System.out.println("Error: " + var5.getMessage());
         }
