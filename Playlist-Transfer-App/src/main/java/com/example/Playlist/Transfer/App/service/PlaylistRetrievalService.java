@@ -27,13 +27,6 @@ public class PlaylistRetrievalService {
 
             final Paging<PlaylistSimplified> playlistSimplifiedPaging = getListOfCurrentUsersPlaylistsRequest.execute();
             System.out.println("Total: " + playlistSimplifiedPaging.getTotal());
-            System.out.println(playlistSimplifiedPaging);
-
-            for (PlaylistSimplified playlist: playlistSimplifiedPaging.getItems()){
-                b(spotifyApi, playlist.getId());
-                System.out.println("------------------------------");
-                //System.out.println(playlist.getName() + ", " + Arrays.toString(((Track) playlist.getTrack()).getArtists()));
-            }
 
             return Arrays.asList(playlistSimplifiedPaging.getItems());
         }
@@ -42,7 +35,7 @@ public class PlaylistRetrievalService {
         }
         return List.of();
     }
-    private void b(SpotifyApi spotifyApi, String playlistId){
+    public List<PlaylistTrack> retrieveTrackList(SpotifyApi spotifyApi, String playlistId){
         try{
             final GetPlaylistsItemsRequest getPlaylistsItemsRequest = spotifyApi
                     .getPlaylistsItems(playlistId)
@@ -50,16 +43,11 @@ public class PlaylistRetrievalService {
 
             final Paging<PlaylistTrack> playlistTrackPaging = getPlaylistsItemsRequest.execute();
             System.out.println("Total " + playlistTrackPaging.getTotal());
-            for (PlaylistTrack playlistTrack : playlistTrackPaging.getItems()){
-                System.out.println(playlistTrack.getTrack().getName());
-            }
-
+            return Arrays.asList(playlistTrackPaging.getItems());
         }
         catch(IOException | SpotifyWebApiException | ParseException e){
             System.out.println("Error: " + e.getMessage());
         }
-
-
-
+        return List.of();
     }
 }

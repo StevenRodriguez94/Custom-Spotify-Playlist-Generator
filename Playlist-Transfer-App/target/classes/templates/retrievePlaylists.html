@@ -29,7 +29,7 @@
         <td th:text="${playlist.owner.displayName}" style="font-size:200%"></td>
         <td>
             <form action="#" method="post">
-                <button type="submit" class="btn btn-outline-light" name="playlistId" th:attr="value = ${playlist.name}">Transfer -></button>
+                <button type="submit" class="btn btn-outline-light" name="playlistIndex" th:attr="value = ${iterator.index}">Transfer -></button>
             </form>
 
         </td>
