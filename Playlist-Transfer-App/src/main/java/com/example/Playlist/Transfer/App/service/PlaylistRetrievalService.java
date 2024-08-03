@@ -7,6 +7,7 @@ import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
+import se.michaelthelin.spotify.requests.data.browse.miscellaneous.GetAvailableGenreSeedsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
 
@@ -17,24 +18,41 @@ import java.util.List;
 @Service
 public class PlaylistRetrievalService {
 
-    public List<PlaylistSimplified> retrievePlaylistList(SpotifyApi spotifyApi){
+//    public List<PlaylistSimplified> retrievePlaylistList(SpotifyApi spotifyApi){
+//        try{
+//
+//            final GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = spotifyApi
+//                    .getListOfCurrentUsersPlaylists()
+//                    //.limit(10)
+//                    .build();
+//
+//            final Paging<PlaylistSimplified> playlistSimplifiedPaging = getListOfCurrentUsersPlaylistsRequest.execute();
+//            System.out.println("Total: " + playlistSimplifiedPaging.getTotal());
+//
+//            return Arrays.asList(playlistSimplifiedPaging.getItems());
+//        }
+//        catch(IOException | SpotifyWebApiException | ParseException e){
+//            System.out.println("Error: " + e.getMessage());
+//        }
+//        return List.of();
+//    }
+    public List<String> getAllGenres(SpotifyApi spotifyApi){
         try{
-
-            final GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = spotifyApi
-                    .getListOfCurrentUsersPlaylists()
-                    //.limit(10)
+            final GetAvailableGenreSeedsRequest getAvailableGenreSeedsRequest = spotifyApi
+                    .getAvailableGenreSeeds()
                     .build();
 
-            final Paging<PlaylistSimplified> playlistSimplifiedPaging = getListOfCurrentUsersPlaylistsRequest.execute();
-            System.out.println("Total: " + playlistSimplifiedPaging.getTotal());
-
-            return Arrays.asList(playlistSimplifiedPaging.getItems());
+            final List<String> genres = Arrays.asList(getAvailableGenreSeedsRequest.execute());
+            System.out.println("Length: " + genres.size());
+            System.out.println("that " + genres);
+            return genres;
         }
         catch(IOException | SpotifyWebApiException | ParseException e){
             System.out.println("Error: " + e.getMessage());
         }
         return List.of();
     }
+
     public List<PlaylistTrack> retrieveTrackList(SpotifyApi spotifyApi, String playlistId){
         try{
             final GetPlaylistsItemsRequest getPlaylistsItemsRequest = spotifyApi

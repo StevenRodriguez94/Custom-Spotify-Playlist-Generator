@@ -19,18 +19,19 @@
     </tr>
     </thead>
     <tbody class="table-group-divider">
-    <tr th:each="playlist, iterator: ${playlists}">
+    <tr th:each="genre, iterator: ${genres}">
 
         <td th:text="${iterator.index+1}" style="font-size:200%"></td>
-        <td class="w-25">
-            <img th:src="${playlist.images[0].url}" class="img-fluid img-thumbnail" alt="Bruh" width="200" height="100"/>
-        </td>
-        <td th:text="${playlist.name}" style="font-size:200%;"></td>
-        <td th:text="${playlist.owner.displayName}" style="font-size:200%"></td>
-        <td>
-            <form action="#" method="post">
-                <button type="submit" class="btn btn-outline-light" name="playlistIndex" th:attr="value = ${iterator.index}">Transfer -></button>
-            </form>
+        <td th:text="${genre}" style="font-size:200%"></td>
+<!--        <td class="w-25">-->
+<!--            <img th:src="${playlist.images[0].url}" class="img-fluid img-thumbnail" alt="Bruh" width="200" height="100"/>-->
+<!--        </td>-->
+<!--        <td th:text="${playlist.name}" style="font-size:200%;"></td>-->
+<!--        <td th:text="${playlist.owner.displayName}" style="font-size:200%"></td>-->
+<!--        <td>-->
+<!--            <form action="#" method="post">-->
+<!--                <button type="submit" class="btn btn-outline-light" name="playlistIndex" th:attr="value = ${iterator.index}">Transfer -></button>-->
+<!--            </form>-->
 
         </td>
     </tr>
