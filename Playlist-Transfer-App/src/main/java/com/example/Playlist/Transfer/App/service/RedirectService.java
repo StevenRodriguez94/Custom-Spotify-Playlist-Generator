@@ -9,7 +9,7 @@ public class RedirectService {
         if(selected.equals("genre"))
             return "redirect:/playlist/genre";
         else if(selected.equals("word"))
-            return "word";
+            return "redirect:/playlist/bpm";
 
         return "length";
     }

@@ -7,18 +7,14 @@ import com.example.Playlist.Transfer.App.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import se.michaelthelin.spotify.SpotifyApi;
-import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -32,7 +28,11 @@ public class GenreController {
     private List<String> genres;
 
     @Autowired
-    public GenreController(GenreList genreList, RecommendationService recommendationService, AuthService authService, CreatePlaylistService createPlaylistService) {
+    public GenreController(GenreList genreList,
+                           RecommendationService recommendationService,
+                           AuthService authService,
+                           CreatePlaylistService createPlaylistService) {
+
         this.spotifyApi = authService.getSpotifyApi();
         this.genreList = genreList;
         this.recommendationService = recommendationService;
@@ -59,7 +59,7 @@ public class GenreController {
             System.out.println("Check spotify app");
             redirectAttributes.addFlashAttribute("message", "You've got a new playlist waiting for you on Spotify! Open the app to explore it now.");
             redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-            return "redirect:/playlist/genre";
+            return "redirect:/playlist";
         }
 
         redirectAttributes.addFlashAttribute("message", "An Error occurred while attempting to create your new playlist; Please try again");
@@ -67,9 +67,6 @@ public class GenreController {
 
         return "/playlist/genre";
 
-        //should take to a page with a progress bar while the playlist gets created and adds the list of songs. After its done it should set a message
-        //stating that the user should go into their spotify app and check their new playlist.
-        //return genre;
     }
 
 }

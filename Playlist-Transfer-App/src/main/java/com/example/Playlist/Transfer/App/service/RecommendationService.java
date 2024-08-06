@@ -1,13 +1,11 @@
 package com.example.Playlist.Transfer.App.service;
 
 import com.example.Playlist.Transfer.App.model.RecommendedTrackList;
-import com.neovisionaries.i18n.CountryCode;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
-import se.michaelthelin.spotify.model_objects.specification.Recommendations;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 
@@ -33,6 +31,28 @@ public class RecommendationService {
             getRecommendationsRequest = spotifyApi.getRecommendations()
                     .limit(limit)
                     .seed_genres(genre)
+                    .max_popularity(100)
+                    .min_popularity(20)
+                    .market(US)
+                    .build();
+
+            recommendedTrackList.setRecommendedTrackList(Arrays.asList(getRecommendationsRequest.execute().getTracks()));
+            System.out.println("Amount of tracks: " + recommendedTrackList.getRecommendedTrackList().size());
+            return recommendedTrackList.getRecommendedTrackList();
+
+        }catch(IOException | SpotifyWebApiException | ParseException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return List.of();
+    }
+
+    public List<Track> getRecommendedTracksBpm(SpotifyApi spotifyApi, int limit, Float bpm){
+        try {
+            getRecommendationsRequest = spotifyApi.getRecommendations()
+                    .limit(limit)
+                    //.seed_genres(genre)
+                    .target_tempo(bpm)
                     .max_popularity(100)
                     .min_popularity(20)
                     .market(US)
