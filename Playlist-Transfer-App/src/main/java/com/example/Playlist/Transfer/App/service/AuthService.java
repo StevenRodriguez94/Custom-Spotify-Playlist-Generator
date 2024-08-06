@@ -35,7 +35,8 @@ public class AuthService {
     public RedirectView getAuthCode() {
         AuthorizationCodeUriRequest authorizationCodeUriRequest = this.spotifyApi
                 .authorizationCodeUri()
-                .scope("playlist-read-private, playlist-read-collaborative playlist-modify-public playlist-modify-private")
+                .scope("playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private" +
+                        " user-read-private ")
                 .show_dialog(true)
                 .build();
 

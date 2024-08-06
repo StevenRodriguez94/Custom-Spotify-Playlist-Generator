@@ -4,19 +4,14 @@ import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Service;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
-import se.michaelthelin.spotify.model_objects.specification.Paging;
-import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
-import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.requests.data.browse.miscellaneous.GetAvailableGenreSeedsRequest;
-import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
-import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class PlaylistRetrievalService {
+public class RetrieveAllGenresService {
 
 //    public List<PlaylistSimplified> retrievePlaylistList(SpotifyApi spotifyApi){
 //        try{
@@ -53,19 +48,19 @@ public class PlaylistRetrievalService {
         return List.of();
     }
 
-    public List<PlaylistTrack> retrieveTrackList(SpotifyApi spotifyApi, String playlistId){
-        try{
-            final GetPlaylistsItemsRequest getPlaylistsItemsRequest = spotifyApi
-                    .getPlaylistsItems(playlistId)
-                    .build();
-
-            final Paging<PlaylistTrack> playlistTrackPaging = getPlaylistsItemsRequest.execute();
-            System.out.println("Total " + playlistTrackPaging.getTotal());
-            return Arrays.asList(playlistTrackPaging.getItems());
-        }
-        catch(IOException | SpotifyWebApiException | ParseException e){
-            System.out.println("Error: " + e.getMessage());
-        }
-        return List.of();
-    }
+//    public List<PlaylistTrack> retrieveTrackList(SpotifyApi spotifyApi, String playlistId){
+//        try{
+//            final GetPlaylistsItemsRequest getPlaylistsItemsRequest = spotifyApi
+//                    .getPlaylistsItems(playlistId)
+//                    .build();
+//
+//            final Paging<PlaylistTrack> playlistTrackPaging = getPlaylistsItemsRequest.execute();
+//            System.out.println("Total " + playlistTrackPaging.getTotal());
+//            return Arrays.asList(playlistTrackPaging.getItems());
+//        }
+//        catch(IOException | SpotifyWebApiException | ParseException e){
+//            System.out.println("Error: " + e.getMessage());
+//        }
+//        return List.of();
+//    }
 }
