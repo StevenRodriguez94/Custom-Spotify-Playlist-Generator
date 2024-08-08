@@ -20,13 +20,19 @@ public class RecommendationService {
 
     private GetRecommendationsRequest getRecommendationsRequest;
     private final RecommendedTrackList recommendedTrackList;
+    private final RetrieveUsersTopArtistsService retrieveUsersTopArtistsService;
+    private final SpotifyApi spotifyApi;
 
     @Autowired
-    public RecommendationService(RecommendedTrackList recommendedTrackList) {
+    public RecommendationService(RecommendedTrackList recommendedTrackList,
+                                 RetrieveUsersTopArtistsService retrieveUsersTopArtistsService,
+                                 AuthService authService) {
+        this.spotifyApi = authService.getSpotifyApi();
         this.recommendedTrackList = recommendedTrackList;
+        this.retrieveUsersTopArtistsService = retrieveUsersTopArtistsService;
     }
 
-    public List<Track> getRecommendedTracksGenre(SpotifyApi spotifyApi, int limit, String genre){
+    public List<Track> getRecommendedTracksGenre(int limit, String genre){
         try {
             getRecommendationsRequest = spotifyApi.getRecommendations()
                     .limit(limit)
@@ -47,11 +53,11 @@ public class RecommendationService {
         return List.of();
     }
 
-    public List<Track> getRecommendedTracksBpm(SpotifyApi spotifyApi, int limit, Float bpm){
+    public List<Track> getRecommendedTracksBpm(int limit, Float bpm, String genreConcat){
         try {
             getRecommendationsRequest = spotifyApi.getRecommendations()
                     .limit(limit)
-                    //.seed_genres(genre)
+                    .seed_genres(genreConcat)
                     .target_tempo(bpm)
                     .max_popularity(100)
                     .min_popularity(20)
@@ -60,6 +66,7 @@ public class RecommendationService {
 
             recommendedTrackList.setRecommendedTrackList(Arrays.asList(getRecommendationsRequest.execute().getTracks()));
             System.out.println("Amount of tracks: " + recommendedTrackList.getRecommendedTrackList().size());
+           // System.out.println("Bpm of first: " + recommendedTrackList.getRecommendedTrackList().get(0));
             return recommendedTrackList.getRecommendedTrackList();
 
         }catch(IOException | SpotifyWebApiException | ParseException e){
@@ -67,5 +74,27 @@ public class RecommendationService {
         }
 
         return List.of();
+    }
+
+    public List<Track> getRecommendedTracksUsersTopArtists(int limit){
+        try {
+
+            getRecommendationsRequest = spotifyApi.getRecommendations()
+                    .limit(limit)
+                    .seed_artists(retrieveUsersTopArtistsService.getAllUsersTopArtists())
+                    .market(US)
+                    .build();
+
+            recommendedTrackList.setRecommendedTrackList(Arrays.asList(getRecommendationsRequest.execute().getTracks()));
+            System.out.println("Amount of tracks: " + recommendedTrackList.getRecommendedTrackList().size());
+            return recommendedTrackList.getRecommendedTrackList();
+
+        }catch(IOException | SpotifyWebApiException | ParseException e){
+            System.out.println("Errorll: " + e.getMessage());
+        }
+
+        return List.of();
+
+
     }
 }

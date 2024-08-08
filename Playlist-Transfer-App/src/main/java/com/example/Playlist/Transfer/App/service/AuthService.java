@@ -36,7 +36,7 @@ public class AuthService {
         AuthorizationCodeUriRequest authorizationCodeUriRequest = this.spotifyApi
                 .authorizationCodeUri()
                 .scope("playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private" +
-                        " user-read-private ")
+                        " user-read-private user-top-read")
                 .show_dialog(true)
                 .build();
 

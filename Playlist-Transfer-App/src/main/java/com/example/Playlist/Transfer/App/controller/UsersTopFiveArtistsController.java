@@ -1,6 +1,5 @@
 package com.example.Playlist.Transfer.App.controller;
 
-import com.example.Playlist.Transfer.App.model.GenreList;
 import com.example.Playlist.Transfer.App.service.AuthService;
 import com.example.Playlist.Transfer.App.service.CreatePlaylistService;
 import com.example.Playlist.Transfer.App.service.RecommendationService;
@@ -18,42 +17,36 @@ import se.michaelthelin.spotify.model_objects.specification.Track;
 import java.util.List;
 
 @Controller
-@RequestMapping("/playlist/genre")
-public class GenreController {
+@RequestMapping("playlist/usersTopArtists")
+public class UsersTopFiveArtistsController {
 
     private final RecommendationService recommendationService;
-    private final SpotifyApi spotifyApi;
-    private final GenreList genreList;
     private final CreatePlaylistService createPlaylistService;
-    private List<String> genres;
+    private final SpotifyApi spotifyApi;
 
     @Autowired
-    public GenreController(GenreList genreList,
-                           RecommendationService recommendationService,
-                           AuthService authService,
-                           CreatePlaylistService createPlaylistService) {
+    public UsersTopFiveArtistsController(AuthService authService,
+                                         RecommendationService recommendationService,
+                                         CreatePlaylistService createPlaylistService) {
 
         this.spotifyApi = authService.getSpotifyApi();
-        this.genreList = genreList;
         this.recommendationService = recommendationService;
         this.createPlaylistService = createPlaylistService;
     }
 
     @GetMapping()
-    public String getGenreSelectionView(Model model){
-        genres = genreList.getGenres();
-        model.addAttribute("title", "Generate Playlist");
-        model.addAttribute("genres", genres);
-        return "genreRelatedActions/selectGenre";
+    public String getUsersTopArtistsSelectionView(Model model){
+        model.addAttribute("title", "Playlist with recommended songs based on user's top five artists");
+        return "usersTopArtistsRelatedActions/selectUsersTopArtists";
     }
+
     @PostMapping()
     public String generatePlaylist(RedirectAttributes redirectAttributes,
-                                   @RequestParam String genreDropdown,
                                    @RequestParam String btnradio,
                                    @RequestParam String playlistName){
 
-        System.out.println(genreDropdown + ", " + btnradio + ", " + playlistName);
-        List<Track> tracks = recommendationService.getRecommendedTracksGenre(Integer.parseInt(btnradio), genreDropdown);
+        System.out.println(btnradio + ", " + playlistName);
+        List<Track> tracks = recommendationService.getRecommendedTracksUsersTopArtists(Integer.parseInt(btnradio));
 
         redirectAttributes.addFlashAttribute("message", "An Error occurred while attempting to create your new playlist; Please try again");
         redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
@@ -65,7 +58,7 @@ public class GenreController {
             return "redirect:/playlist";
         }
 
-        return "/playlist/genre";
+        return "/playlist/usersTopArtists";
     }
 
 }

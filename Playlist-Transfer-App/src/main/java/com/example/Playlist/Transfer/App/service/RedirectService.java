@@ -6,11 +6,12 @@ import org.springframework.stereotype.Service;
 public class RedirectService {
 
     public String redirectAfterSharedAttributeSelection(String selected){
-        if(selected.equals("genre"))
-            return "redirect:/playlist/genre";
-        else if(selected.equals("word"))
-            return "redirect:/playlist/bpm";
+        return switch (selected) {
+            case "genre" -> "redirect:/playlist/genre";
+            case "word" -> "redirect:/playlist/bpm";
+            case "topartists" -> "redirect:/playlist/usersTopArtists";
+            default -> "Not found";
+        };
 
-        return "length";
     }
 }
