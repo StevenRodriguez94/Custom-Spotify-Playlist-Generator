@@ -22,7 +22,6 @@ import java.util.List;
 public class GenreController {
 
     private final RecommendationService recommendationService;
-    private final SpotifyApi spotifyApi;
     private final GenreList genreList;
     private final CreatePlaylistService createPlaylistService;
     private List<String> genres;
@@ -30,10 +29,8 @@ public class GenreController {
     @Autowired
     public GenreController(GenreList genreList,
                            RecommendationService recommendationService,
-                           AuthService authService,
                            CreatePlaylistService createPlaylistService) {
 
-        this.spotifyApi = authService.getSpotifyApi();
         this.genreList = genreList;
         this.recommendationService = recommendationService;
         this.createPlaylistService = createPlaylistService;

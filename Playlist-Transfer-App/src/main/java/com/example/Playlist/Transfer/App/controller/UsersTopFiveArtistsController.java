@@ -1,6 +1,5 @@
 package com.example.Playlist.Transfer.App.controller;
 
-import com.example.Playlist.Transfer.App.service.AuthService;
 import com.example.Playlist.Transfer.App.service.CreatePlaylistService;
 import com.example.Playlist.Transfer.App.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 import java.util.List;
@@ -22,14 +20,11 @@ public class UsersTopFiveArtistsController {
 
     private final RecommendationService recommendationService;
     private final CreatePlaylistService createPlaylistService;
-    private final SpotifyApi spotifyApi;
 
     @Autowired
-    public UsersTopFiveArtistsController(AuthService authService,
-                                         RecommendationService recommendationService,
+    public UsersTopFiveArtistsController(RecommendationService recommendationService,
                                          CreatePlaylistService createPlaylistService) {
 
-        this.spotifyApi = authService.getSpotifyApi();
         this.recommendationService = recommendationService;
         this.createPlaylistService = createPlaylistService;
     }

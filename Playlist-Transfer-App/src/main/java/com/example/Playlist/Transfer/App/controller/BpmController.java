@@ -1,7 +1,6 @@
 package com.example.Playlist.Transfer.App.controller;
 
 import com.example.Playlist.Transfer.App.model.GenreList;
-import com.example.Playlist.Transfer.App.service.AuthService;
 import com.example.Playlist.Transfer.App.service.CreatePlaylistService;
 import com.example.Playlist.Transfer.App.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 import java.util.ArrayList;
@@ -28,11 +26,12 @@ public class BpmController {
     private final CreatePlaylistService createPlaylistService;
     private List<String> genres;
     private String genreConcat;
-    private final SpotifyApi spotifyApi;
 
     @Autowired
-    public BpmController(AuthService authService, RecommendationService recommendationService, CreatePlaylistService createPlaylistService, GenreList genreList) {
-        this.spotifyApi = authService.getSpotifyApi();
+    public BpmController(RecommendationService recommendationService,
+                         CreatePlaylistService createPlaylistService,
+                         GenreList genreList) {
+
         this.recommendationService = recommendationService;
         this.createPlaylistService = createPlaylistService;
         this.genreList = genreList;
@@ -54,11 +53,6 @@ public class BpmController {
                                    @RequestParam String playlistName){
 
         System.out.println(bpmNumber + ", " + btnradio + ", " + playlistName);
-//        if (Float.parseFloat(bpmNumber) > 250 || Float.parseFloat(bpmNumber) < 60){
-//            redirectAttributes.addFlashAttribute("message", "An Error occurred while attempting to create your new playlist; Please enter a bpm value between 60 and 250 please.");
-//            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
-//            return "bpmRelatedActions/selectBpm";
-//        }
         List<Track> tracks = recommendationService.getRecommendedTracksBpm(Integer.parseInt(btnradio), Float.parseFloat(bpmNumber), genreConcat);
 
         if(createPlaylistService.createPlaylist(playlistName)){
