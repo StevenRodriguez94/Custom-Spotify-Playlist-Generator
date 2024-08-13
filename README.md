@@ -1,2 +1,2 @@
 # Playlist-Transfer-App
-The final product should be a web app that can transfer playlists from Spotify to another music streaming service such as tidal or maybe Apple Music.
+The final product should be a web app that can generate playlists on Spotify based on any selected attribute such as Genre or Tempo.
