@@ -16,5 +16,8 @@ Custom Spotify Playlist Generator that generates a playlist in the user's Spotif
 ## **Additional Information**
   In order for this project to work, the developer needs to generate a client id and client secret by following the instructions from the [Spotify for Developers Website](https://developer.spotify.com). This project has an enum class not in the repository which contains these details. They should NOT be visible for anyone to see. This information is used in the authorization process of the application, so it is important to set it up first before delving into any similar application that uses the Spotify API specifically. 
 
+## **Tools Used**
+  Java/Spring Boot, Thymeleaf, Bootstrap, HTML/CSS.
+
 ## Authors
 [@Steven Rodriguez](https://github.com/StevenRodriguez94)
