@@ -1,5 +1,5 @@
 # **Custom Spotify Playlist Generator**
-Custom Spotify Playlist Generator that generates a playlist in the user's Spotify Account based on a specific selected attribute such as by genre or tempo. 
+Custom Spotify Playlist Generator that generates a playlist in the user's Spotify Account based on a specific selected attribute such as by genre or tempo. [Click here to check it out.](http://custom-spotify-playlist-generato-env.eba-ieb4yuxy.us-east-2.elasticbeanstalk.com)
 
 ## **Description**
   This Project let's the user generate different playlists with many options, but in order to do that the application has to primarily request permission from the user. This is done by using OAuth2.0 to access the Spotify API. The application implements the Authorization Code Flow from the OAuth2.0 standard in order to request an access token, which the application then use for the different requests to the API. After retrieving the access token, the application provides the user with multiple options, each being one attribute that all the playlist's songs will share. For now, there are three options provided to the user which are by Genre, by Tempo, and by the Users Top 5 Artists. 
