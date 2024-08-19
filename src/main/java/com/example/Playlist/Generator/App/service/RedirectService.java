@@ -12,6 +12,7 @@ public class RedirectService {
             case "genre" -> "redirect:/playlist/genre";
             case "bpm" -> "redirect:/playlist/bpm";
             case "topartists" -> "redirect:/playlist/usersTopArtists";
+            case "songlength" -> "redirect:/playlist/songLength";
             default -> "Not found";
         };
 

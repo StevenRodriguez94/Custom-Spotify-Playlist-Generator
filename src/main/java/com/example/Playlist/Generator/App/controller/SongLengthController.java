@@ -1,6 +1,5 @@
 package com.example.Playlist.Generator.App.controller;
 
-import com.example.Playlist.Generator.App.model.GenreList;
 import com.example.Playlist.Generator.App.service.CreatePlaylistService;
 import com.example.Playlist.Generator.App.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,47 +12,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Controller
-@RequestMapping("/playlist/bpm")
-public class BpmController {
+@RequestMapping("/playlist/songLength")
+public class SongLengthController {
 
     private final RecommendationService recommendationService;
-    //private final GenreList genreList;
     private final CreatePlaylistService createPlaylistService;
-    //private List<String> genres;
-    private String genreConcat;
 
     @Autowired
-    public BpmController(RecommendationService recommendationService,
-                         CreatePlaylistService createPlaylistService,
-                         GenreList genreList) {
-
+    public SongLengthController(RecommendationService recommendationService, CreatePlaylistService createPlaylistService) {
         this.recommendationService = recommendationService;
         this.createPlaylistService = createPlaylistService;
-        //this.genreList = genreList;
-        //this.genres = new ArrayList<>();
     }
 
     @GetMapping()
-    public String getBpmSelectionView(Model model){
-        //genres = genreList.getGenres();
-        //setFiveGenres();
-        model.addAttribute("title", "Generate Playlist by Tempo/Bpm");
-        return "bpmRelatedActions/selectBpm";
+    public String getSongLengthSelectionView(Model model){
+        model.addAttribute("title", "Generate Playlist by Song Length");
+        return "songLengthRelatedActions/selectSongLength";
     }
 
     @PostMapping()
     public String generatePlaylist(RedirectAttributes redirectAttributes,
-                                   @RequestParam String bpmNumber,
+                                   @RequestParam String songMin,
                                    @RequestParam String btnradio,
                                    @RequestParam String playlistName){
 
-        System.out.println(bpmNumber + ", " + btnradio + ", " + playlistName);
-        List<Track> tracks = recommendationService.getRecommendedTracksBpm(Integer.parseInt(btnradio), Float.parseFloat(bpmNumber), genreConcat);
+        System.out.println(songMin + ", " + btnradio + ", " + playlistName);
+        List<Track> tracks = recommendationService.getRecommendedTracksSongLength(Integer.parseInt(btnradio), Integer.parseInt(songMin));
 
         if(createPlaylistService.createPlaylist(playlistName)){
             System.out.println("Check spotify app");
@@ -65,25 +52,7 @@ public class BpmController {
         redirectAttributes.addFlashAttribute("message", "An Error occurred while attempting to create your new playlist; Please try again");
         redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
 
-        return "/playlist/bpm";
+        return "/playlist/songLength";
 
     }
-
-//    private void setFiveGenres(){
-//        genreConcat = "";
-//        for (int i = 0; i < 5; i ++){
-//            int random = new Random().nextInt(genreList.getGenres().size());
-//            if (!genres.contains(genreList.getGenres().get(random))) {
-//                genres.add(genreList.getGenres().get(random));
-//                if (i != 4)
-//                    genreConcat += genres.get(i) + ",";
-//                else
-//                    genreConcat += genres.get(i);
-//            }
-//            else
-//                i --;
-//        }
-//    }
-
-
 }

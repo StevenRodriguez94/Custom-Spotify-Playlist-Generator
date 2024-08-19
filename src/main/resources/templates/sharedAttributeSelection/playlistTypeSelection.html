@@ -18,6 +18,9 @@
         <form action="/playlist" method="post">
             <button type="submit" class="btn btn-success rounded-3" style="height:200px;width:300px;font-size:200%;" name="selected" th:attr="value = topartists">By User's Top Artists</button>
         </form>
+        <form action="/playlist" method="post">
+            <button type="submit" class="btn btn-light rounded-3" style="height:200px;width:300px;font-size:200%;" name="selected" th:attr="value = songlength">By Song Length</button>
+        </form>
     </div>
 
     <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>

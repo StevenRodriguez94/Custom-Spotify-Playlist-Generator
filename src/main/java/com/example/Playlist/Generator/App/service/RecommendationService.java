@@ -62,9 +62,9 @@ public class RecommendationService {
             getRecommendationsRequest = spotifyApi.getRecommendations()
                     .limit(limit)
                     .seed_genres("pop, edm, hip-hop, rock, latino")
-                    .max_tempo(bpm+5)
+                    .max_tempo(bpm+3)
                     .target_tempo(bpm)
-                    .min_tempo(bpm-5)
+                    .min_tempo(bpm-3)
                     .max_popularity(100)
                     .min_popularity(10)
                     .market(US)
@@ -98,5 +98,32 @@ public class RecommendationService {
             return List.of();
         }
 
+    }
+
+    @Log
+    @CatchSpotifyApiExceptions
+    public List<Track> getRecommendedTracksSongLength(int limit, int minutes){
+        try {
+            int songDuration = (minutes * 1000 * 60); //+ (seconds * 1000);
+            int songDurationMax = ((minutes + 1) * 1000 * 60) - 1000;
+
+            getRecommendationsRequest = spotifyApi.getRecommendations()
+                    .limit(limit)
+                    .seed_genres("pop, edm, hip-hop, rock, latino")
+                    .max_popularity(100)
+                    //.min_popularity(10)
+                    //.target_duration_ms(songDuration)
+                    .max_duration_ms(songDurationMax)
+                    .min_duration_ms(songDuration)
+                    .market(US)
+                    .build();
+
+            recommendedTrackList.setRecommendedTrackList(Arrays.asList(getRecommendationsRequest.execute().getTracks()));
+            System.out.println("Amount of tracks: " + recommendedTrackList.getRecommendedTrackList().size());
+            return recommendedTrackList.getRecommendedTrackList();
+
+        }catch(IOException | SpotifyWebApiException | ParseException e){
+            return List.of();
+        }
     }
 }
