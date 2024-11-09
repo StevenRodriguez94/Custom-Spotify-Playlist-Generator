@@ -4,9 +4,10 @@
 /Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/controller/AuthController.java
 /Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/controller/BpmController.java
 /Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/controller/GenreController.java
+/Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/controller/LoginController.java
 /Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/controller/PlaylistController.java
+/Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/controller/SongLengthController.java
 /Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/controller/UsersTopFiveArtistsController.java
-/Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/controller/loginController.java
 /Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/customTags/CatchSpotifyApiExceptions.java
 /Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/customTags/Log.java
 /Users/rodri/IdeaProjects/Playlist-Transfer-App/src/main/java/com/example/Playlist/Generator/App/model/ClientInfo.java

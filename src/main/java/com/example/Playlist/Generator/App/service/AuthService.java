@@ -24,7 +24,7 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 @Service
 public class AuthService {
     private final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/api/getcode");
-    //private final URI redirectUri = SpotifyHttpManager.makeUri("http://custom-spotify-playlist-generato-env.eba-ieb4yuxy.us-east-2.elasticbeanstalk.com/api/getcode");
+    //private final URI redirectUri = SpotifyHttpManager.makeUri("http://customspotifyplaylistgenerator-env.eba-zex8skb6.us-east-2.elasticbeanstalk.com/api/getcode");
 
     private final SpotifyApi spotifyApi;
 

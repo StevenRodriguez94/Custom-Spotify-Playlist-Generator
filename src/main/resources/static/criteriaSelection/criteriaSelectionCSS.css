@@ -1,0 +1,53 @@
+body{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    background: black;
+}
+
+.titleBanner{
+    color: white;
+    background: #1db954;
+    font-size: 36px;
+    text-align: center;
+    width: 50%;
+    height: 120px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.criteriaSelection{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-top: 80px;
+    width: 50%;
+    height: 100%;
+}
+
+form{
+    display: flex;
+    width: 75%;
+}
+
+fieldSet{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 4px solid #1db954;
+    border-radius: 10px;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.criteriaBtn{
+    border-radius: 100px;
+    background: antiquewhite;
+    height: 150px;
+    font-size: 40px;
+}

@@ -36,7 +36,7 @@ public class PlaylistController {
     @GetMapping()
     public String setUpAttrSelectionPage(Model model){
         genreList.setGenres(retrieveAllGenresService.getAllGenres(spotifyApi));
-        model.addAttribute("title", "Please select what shared attributes all songs of the playlist should have: ");
+        //model.addAttribute("title", "Please select what shared attributes all songs of the playlist should have: ");
 
         return "sharedAttributeSelection/playlistTypeSelection";
     }
